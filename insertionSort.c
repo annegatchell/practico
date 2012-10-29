@@ -1,7 +1,13 @@
+/*
+Anne Gatchell
+29 October 2012
+
+Integer insertion sort implemented in C for practice
+
+*/
+
 #include <stdlib.h>
 #include <stdio.h>
-
-
 
 void swap(int*a, int*b){
 	int tmp;
