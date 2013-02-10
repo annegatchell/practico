@@ -4,6 +4,9 @@
 *.s
 *.o
 
+#Java
+*.class
+
 # Packages
 *.egg
 *.egg-info
