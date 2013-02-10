@@ -1,6 +1,4 @@
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.*;
 
 class Dog implements Comparable<Dog>{
 	String name;
@@ -32,9 +30,26 @@ public class ComparatorGenericsTest{
 		dogs.add(new Dog("Tiny", 6, 8, 6));
 		dogs.add(new Dog("Dummy", 7, 20, 13));
 
+		class NameCompare implements Comparator<Dog>{
+			public int compare(Dog one, Dog two){
+				return one.name.compareTo(two.name);
+			}
+		}
 
-		System.out.println(dogs);
+		class AgeCompare implements Comparator<Dog>{
+			public int compare(Dog one, Dog two){
+				return one.age - two.age;
+			}
+		}
+
+
+		System.out.println("Unsorted " + dogs);
 		Collections.sort(dogs);
-		System.out.println(dogs);
+		System.out.println("Sorted with comparable, weight " + dogs);
+		NameCompare nameCompare = new NameCompare();
+		Collections.sort(dogs, nameCompare);
+		System.out.println("Sorted with nameCompare " + dogs);
+		Collections.sort(dogs, new AgeCompare());
+		System.out.println("Sorted with ageCompare " + dogs);
 	}
 }
