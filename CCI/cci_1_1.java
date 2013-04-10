@@ -1,6 +1,6 @@
 import java.util.*;
 
-class UniqueCharStringTester{
+class cci_1_1{
 
 	public boolean stringHasAllUniqueChars_SET(String input){
 		if(input.length() == 0)return true;
@@ -45,7 +45,7 @@ class UniqueCharStringTester{
 	}
 
 	public static void main(String[] args){
-		UniqueCharStringTester t = new UniqueCharStringTester();
+		cci_1_1 t = new cci_1_1();
 
 		String empty = "";
 		String allAZ = "abcdefghijklmnopqrstuvwxyz";
