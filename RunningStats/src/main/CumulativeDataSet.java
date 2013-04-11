@@ -2,33 +2,36 @@ package src.main;
 
 public class CumulativeDataSet{
   private int totalSamples;
-  private int cumulativeSumOfSamples; 
-  private long cumulativeSumOfSampleSquares; //eg. a^2 + b^2 + c^2
+  private double cumSumOfSamples; 
+  private double cumSumOfSampleSquares; //eg. a^2 + b^2 + c^2
 
   public CumulativeDataSet(){
     totalSamples = 0;
-    cumulativeSumOfSamples = 0;
-    cumulativeSumOfSampleSquares = 0;
+    cumSumOfSamples = 0e0;
+    cumSumOfSampleSquares = 0e0;
   }
 
-  public void addSampleToSet(int sampleToAdd){
+  public <T extends Number> void addSampleToSet(T sampleToAdd){
     totalSamples++;
-    cumulativeSumOfSamples += sampleToAdd;
-    cumulativeSumOfSampleSquares += sampleToAdd*sampleToAdd;
+    cumSumOfSamples += sampleToAdd.doubleValue();
+    cumSumOfSampleSquares += Math.pow(sampleToAdd.doubleValue(),2);
   }
 
   public double getAverage(){
     if(totalSamples == 0) return Double.NaN; 
-    return cumulativeSumOfSamples/totalSamples;
+    return cumSumOfSamples/totalSamples;
   }
   
   public double getVariance(){
     if(totalSamples == 0) return Double.NaN;
     double average = getAverage();
-    double variance =  (1/totalSamples)*
-                        (cumulativeSumOfSampleSquares 
-                          - 2* average* cumulativeSumOfSamples 
-                          + totalSamples* Math.pow(average, 2));
+    // Variance = 
+    // (1/totalSamples)*(cumSumOfSampleSquares - 2*average*cumSumOfSamples + totalSamples*average^2)
+    double vNumeratorTerm1 = cumSumOfSampleSquares;
+    double vNumeratorTerm2 = 2*average*cumSumOfSamples;
+    double vNumeratorTerm3 = totalSamples*Math.pow(average,2);
+    double numeratorOfVariance = vNumeratorTerm1 - vNumeratorTerm2 + vNumeratorTerm3;
+    double variance = numeratorOfVariance/totalSamples;
     return variance;
   }
 
@@ -41,12 +44,12 @@ public class CumulativeDataSet{
     return totalSamples;
   }
 
-  public int getCumulativeSumOfSamples(){
-    return cumulativeSumOfSamples;
+  public double getCumSumOfSamples(){
+    return cumSumOfSamples;
   }
 
-  public long getCumulativeSumOfSampleSquares(){
-    return cumulativeSumOfSampleSquares;
+  public double getCumSumOfSampleSquares(){
+    return cumSumOfSampleSquares;
   }
 
 }

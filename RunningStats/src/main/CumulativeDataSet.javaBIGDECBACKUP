@@ -1,0 +1,64 @@
+package src.main;
+
+import java.math.BigDecimal;
+
+public class CumulativeDataSet <T extends Number>{
+  private int totalSamples;
+  private BigDecimal cumulativeSumOfSamples; 
+  private BigDecimal cumulativeSumOfSampleSquares; //eg. a^2 + b^2 + c^2
+
+  public CumulativeDataSet(){
+    totalSamples = 0;
+    cumulativeSumOfSamples = new BigDecimal(BigDecimal.ZERO);
+    cumulativeSumOfSampleSquares = new BigDecimal(BigDecimal.ZERO);
+  }
+
+  public CumulativeDataSet(MathContext mc){
+    totalSamples = 0;
+    cumulativeSumOfSamples = new BigDecimal(BigDecimal.ZERO, mc);
+    cumulativeSumOfSampleSquares = new BigDecimal(BigDecimal.ZERO, mc); 
+  }
+
+  public void addSampleToSet(T sampleToAdd){
+    totalSamples++;
+    cumulativeSumOfSamples.add(BigDecimal(sampleToAdd));
+    cumulativeSumOfSampleSquares.add(BigDecimal(sampleToAdd).pow(2));
+  }
+
+  public BigDecimal getAverage(){
+    if(totalSamples == 0) return Double.NaN; 
+    return cumulativeSumOfSamples.divide(totalSamples,RoundingMode.HALF_UP);
+  }
+  
+  public BigDecimal getVariance(){
+    if(totalSamples == 0) return Double.NaN;
+    BigDecimal average = getAverage();
+    // Variance = 
+    // (1/totalSamples)*(cumulativeSumOfSampleSquares - 2*average*cumulativeSumOfSamples + totalSamples*average^2)
+    BigDecimal varianceNumeratorTerm1 = cumulativeSumOfSampleSquares;
+    BigDecimal varianceNumeratorTerm2 = cumulativeSumOfSamples.multiply(average).multiply(BigDecimal(2));
+    BigDecimal varianceNumeratorTerm3 = average.pow(2).multiply(BigDecimal(totalSamples));
+    BigDecimal numeratorOfVariance = varianceNumeratorTerm1.subtract(varianceNumeratorTerm2).add
+                                              (varianceNumeratorTerm3);
+    BigDecimal variance = numeratorOfVariance.divide(totalSamples,RoundingMode.HALF_UP);
+    return variance;
+  }
+
+  public double getStandardDeviation(){
+    if(totalSamples == 0) return Double.NaN;
+    return getVariance().pow(BigDecimal(0.5));
+  }
+
+  public int gettotalSamples(){
+    return totalSamples;
+  }
+
+  public int getCumulativeSumOfSamples(){
+    return cumulativeSumOfSamples;
+  }
+
+  public long getCumulativeSumOfSampleSquares(){
+    return cumulativeSumOfSampleSquares;
+  }
+
+}
