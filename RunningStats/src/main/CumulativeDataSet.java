@@ -7,8 +7,8 @@ public class CumulativeDataSet{
 
   public CumulativeDataSet(){
     totalSamples = 0;
-    cumSumOfSamples = 0e0;
-    cumSumOfSampleSquares = 0e0;
+    cumSumOfSamples = 0;
+    cumSumOfSampleSquares = 0;
   }
 
   public <T extends Number> void addSampleToSet(T sampleToAdd){
@@ -27,6 +27,8 @@ public class CumulativeDataSet{
     double average = getAverage();
     // Variance = 
     // (1/totalSamples)*(cumSumOfSampleSquares - 2*average*cumSumOfSamples + totalSamples*average^2)
+    // Refrained from simplifiying algebra in order to minimize number of divisions (loss 
+    //  of precision)
     double vNumeratorTerm1 = cumSumOfSampleSquares;
     double vNumeratorTerm2 = 2*average*cumSumOfSamples;
     double vNumeratorTerm3 = totalSamples*Math.pow(average,2);

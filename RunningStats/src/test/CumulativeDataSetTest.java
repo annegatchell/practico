@@ -77,6 +77,7 @@ public class CumulativeDataSetTest {
 //Test different types
     @Test
     public void testAddingByte(){
+        System.out.println("BYTE");
         byte b = 4;
         a.addSampleToSet(b);
         b = 6;
