@@ -5,8 +5,8 @@ import org.junit.runner.RunWith;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-	// src.test.BagTest.class,
-	src.test.SorterTest.class
+	//src.test.SearcherTest.class,
+	src.test.TreeTest.class
 })
 public class AllMyTests {
   //nothing

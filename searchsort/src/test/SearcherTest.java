@@ -7,9 +7,10 @@ import java.lang.Exception;
 import java.util.Arrays;
 
 import src.main.Sorter;
+import src.main.Searcher;
 import java.util.Arrays;
 
-public class SorterTest {
+public class SearcherTest {
     /**
      * Sets up the test fixture. 
      * (Called before every test case method.)
@@ -28,26 +29,17 @@ public class SorterTest {
     }
 
     @Test
-    public void testInsertionSort(){
-        Integer[] input = {3,2,6,1,4,5};
-        Sorter.insertionSort(input);
-        Integer[] sorted = {1,2,3,4,5,6};
-        assertArrayEquals(sorted, input);
+    public void testBinarySearch(){
+        Integer[] input = Sorter.sortedIntArray0ToN(100);
+        assertEquals(5, Searcher.binarySearch(input, 5));
+        assertEquals(-1, Searcher.binarySearch(input, 101));
     }
-
-    @Test
-    public void testMergeSort(){
-        Integer[] input = {3,2,8,6,1,4,7,5};
-        Integer[] copy = Arrays.copyOfRange(input, 0,4);
-        Sorter.mergeSort(input, 0, 7);
-        Integer[] sorted = {1,2,3,4,5,6,7,8};
-        assertArrayEquals(sorted, input);
-    }
-    
 
 
     public static void main(String args[]) {
         org.junit.runner.JUnitCore.main("src.test.ElementTest");
     }
+
+
 
 }
